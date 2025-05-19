@@ -1,2 +1,3 @@
-# RNAseq_analysis
+# RNAseq analysis
+
 This repository includes scripts for RNAseq analysis
