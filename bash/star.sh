@@ -46,29 +46,10 @@ cat SampleList | while read line; do
 	--outReadsUnmapped Fastx \
     \n"
 
-	printf "samtools view \
-	-@ $numberOfThreads \
-	-bS $line.Aligned.out.sam \
-	-o $line.bam \
-	\n"
-
-	printf "samtools flagstat \
-	-@ $numberOfThreads \
-	$line.bam > $line.report.txt \
-	\n"
-
-	printf "samtools view \
-	-@ $numberOfThreads \
-	-b -F 4 \
-	$line.bam \
-	-o $line.mapped.bam \
-	\n"
-
-	printf "samtools sort \
-	-@ $numberOfThreads \
-	$line.mapped.bam \
-	-o $line.mapped.sorted.bam \
-	\n"
+	printf "samtools view     -@ $numberOfThreads -bS $line.Aligned.out.sam -o $line.bam \n"
+	printf "samtools flagstat -@ $numberOfThreads $line.bam > $line.report.txt \n"
+	printf "samtools view 	  -@ $numberOfThreads -b -F 4 $line.bam -o $line.mapped.bam \n"
+	printf "samtools sort     -@ $numberOfThreads $line.mapped.bam -o $line.mapped.sorted.bam \n"
 
 	printf "\n\n"
 done;
