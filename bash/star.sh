@@ -16,8 +16,6 @@ printf "\n\n"
 cat SampleList | while read line; do
 
 	printf "### $line ###\n"
-	# printf $line
-	# printf "  ### \n"
 
 	printf "fastqc \
 	-t $numberOfThreads \
@@ -25,17 +23,6 @@ cat SampleList | while read line; do
 	$pathToFASTQFiles/$line*_R2_*.fastq.gz \
 	-o ./quality/raw/ \
 	\n"
-
-    # printf $numberOfThreads
-    # printf " "
-	# printf $pathToFASTQFiles
-	# printf $line
-	# printf "*_R1_*.fastq.gz "
-	# printf $pathToFASTQFiles
-	# printf $line
-	# printf "*_R2_*.fastq.gz "
-	# printf " -o ./quality/raw/"
-	# printf "\n"
 
 	printf "/home/bio_tmp/HumanNGS/Apps/trim_galore/trim_galore \
 	--path_to_cutadapt /home/bio_tmp/HumanNGS/Apps/cutadapt-1.8.1/bin/cutadapt \
@@ -48,18 +35,6 @@ cat SampleList | while read line; do
 	-o ./quality/trim/ \
 	\n"
 
-	# printf "/home/bio_tmp/HumanNGS/Apps/trim_galore/trim_galore"
-	# printf " --path_to_cutadapt /home/bio_tmp/HumanNGS/Apps/cutadapt-1.8.1/bin/cutadapt"
-	# printf " --length 50 --quality 28 --fastqc --paired  "
-	# printf $pathToFASTQFiles
-	# printf $line
-	# printf "*_R1_*.fastq.gz "
-	# printf $pathToFASTQFiles
-	# printf $line
-	# printf "*_R2_*.fastq.gz"
-	# printf " -o ./quality/trim/"
-	# printf "\n"
-
 	printf "STAR \
 	--genomeDir $pathToGenomeRef \
 	--runThreadN $numberOfThreads \
@@ -71,53 +46,16 @@ cat SampleList | while read line; do
 	--outReadsUnmapped Fastx \
     \n"
 
-	# printf "STAR"
-	# printf " --genomeDir "
-    # printf $pathToGenomeRef
-   	# printf " --runThreadN "
-    # printf $numberOfThreads
-    # printf " --readFilesCommand zcat"
-    # printf " --readFilesIn ./quality/trim/"
-    # printf $line
-    # printf "*_R1_*val_1.fq.gz ./quality/trim/"
-    # printf $line
-    # printf "*_R2_*val_2.fq.gz"
-    # printf " --outFileNamePrefix "
-    # printf $line
-	# printf "."
-	# printf " --outReadsUnmapped Fastx"
-    # printf "\n"
-
 	printf "samtools view \
 	-@ $numberOfThreads \
 	-bS $line.Aligned.out.sam \
 	-o $line.bam \
 	\n"
 
-	# printf "samtools view"
-	# printf " -@ "
-	# printf $numberOfThreads
-	# printf " -bS "
-	# printf $line
-	# printf ".Aligned.out.sam -o "
-	# printf $line
-	# printf ".bam"
-	# printf "\n"
-
 	printf "samtools flagstat \
 	-@ $numberOfThreads \
 	$line.bam > $line.report.txt \
 	\n"
-
-	# printf "samtools flagstat"
-	# printf " -@ "
-	# printf $numberOfThreads
-	# printf " "
-	# printf $line
-	# printf ".bam > "
-	# printf $line
-	# printf ".report.txt"
-	# printf "\n"
 
 	printf "samtools view \
 	-@ $numberOfThreads \
@@ -125,16 +63,6 @@ cat SampleList | while read line; do
 	$line.bam \
 	-o $line.mapped.bam \
 	\n"
-
-	# printf "samtools view"
-	# printf " -@ "
-	# printf $numberOfThreads
-	# printf " -b -F 4 "
-	# printf $line
-	# printf ".bam -o "
-	# printf $line
-	# printf ".mapped.bam"
-	# printf "\n"
 
 	printf "samtools sort \
 	-@ $numberOfThreads \
