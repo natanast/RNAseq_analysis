@@ -8,6 +8,7 @@ numberOfThreads=16
 printf "mkdir quality\n"
 printf "mkdir quality/raw\n"
 printf "mkdir quality/trim\n"
+printf "\n\n"
 
 printf "source activate star_aligner"
 printf "\n\n"
@@ -87,62 +88,75 @@ cat SampleList | while read line; do
 	# printf " --outReadsUnmapped Fastx"
     # printf "\n"
 
-	printf "samtools view"
-	printf " -@ "
-	printf $numberOfThreads
-	printf " -bS "
-	printf $line
-	printf ".Aligned.out.sam -o "
-	printf $line
-	printf ".bam"
-	printf "\n"
+	printf "samtools view \
+	-@ $numberOfThreads \
+	-bS $line.Aligned.out.sam \
+	-o $line.bam \
+	\n"
 
-	printf "samtools flagstat"
-	printf " -@ "
-	printf $numberOfThreads
-	printf " "
-	printf $line
-	printf ".bam > "
-	printf $line
-	printf ".report.txt"
-	printf "\n"
+	# printf "samtools view"
+	# printf " -@ "
+	# printf $numberOfThreads
+	# printf " -bS "
+	# printf $line
+	# printf ".Aligned.out.sam -o "
+	# printf $line
+	# printf ".bam"
+	# printf "\n"
 
-	printf "samtools view"
-	printf " -@ "
-	printf $numberOfThreads
-	printf " -b -F 4 "
-	printf $line
-	printf ".bam -o "
-	printf $line
-	printf ".mapped.bam"
-	printf "\n"
+	printf "samtools flagstat \
+	-@ $numberOfThreads \
+	$line.bam > $line.report.txt \
+	\n"
 
-	printf "samtools sort"
-	printf " -@ "
-	printf $numberOfThreads
-	printf " "
-	printf $line
-	printf ".mapped.bam -o "
-	printf $line
-	printf ".mapped.sorted.bam"
-	printf "\n"
+	# printf "samtools flagstat"
+	# printf " -@ "
+	# printf $numberOfThreads
+	# printf " "
+	# printf $line
+	# printf ".bam > "
+	# printf $line
+	# printf ".report.txt"
+	# printf "\n"
+
+	printf "samtools view \
+	-@ $numberOfThreads \
+	-b -F 4 \
+	$line.bam \
+	-o $line.mapped.bam \
+	\n"
+
+	# printf "samtools view"
+	# printf " -@ "
+	# printf $numberOfThreads
+	# printf " -b -F 4 "
+	# printf $line
+	# printf ".bam -o "
+	# printf $line
+	# printf ".mapped.bam"
+	# printf "\n"
+
+	printf "samtools sort \
+	-@ $numberOfThreads \
+	$line.mapped.bam \
+	-o $line.mapped.sorted.bam \
+	\n"
 
 	printf "\n\n"
 done;
 
 printf "conda deactivate"
 printf "\n\n"
+
 printf "rm *.sam"
 printf "\n\n"
 
-printf "/home/bio_tmp/HumanNGS/Apps/subread-1.6.4-Linux-x86_64/bin/featureCounts"
-printf " -a "
-printf $pathToGenomeAnnotation
-printf " -T "
-printf $numberOfThreads
-printf " -t gene "
-printf " -g gene_name "
-printf " -p"
-printf " -o gene-counts.txt "
-printf "*.mapped.sorted.bam"
-printf "\n"
+printf "/home/bio_tmp/HumanNGS/Apps/subread-1.6.4-Linux-x86_64/bin/featureCounts \
+-a $pathToGenomeAnnotation \
+-T $numberOfThreads \
+-t gene \
+-g gene_name \
+-p \
+-o gene-counts.txt \
+*.mapped.sorted.bam \
+\n"
