@@ -5,7 +5,7 @@ pathToGenomeAnnotation="/work_1/nikospech/hg38/gencode/gencode.v47.primary_assem
 pathToFASTQFiles="/mnt/new_home/kate_mallou/Karolinska_RNASeq/"
 numberOfThreads=16
 
-printf "mkdir quality"
+printf "mkdir quality\n"
 printf "mkdir quality/raw\n"
 printf "mkdir quality/trim\n"
 
@@ -14,50 +14,78 @@ printf "\n\n"
 
 cat SampleList | while read line; do
 
-	printf "### Sample: "
-	printf $line
-	printf "  ### \n"
+	printf "### $line ###\n"
+	# printf $line
+	# printf "  ### \n"
 
-	printf "fastqc -t "
-    printf $numberOfThreads
-    printf " "
-	printf $pathToFASTQFiles
-	printf $line
-	printf "*_R1_*.fastq.gz "
-	printf $pathToFASTQFiles
-	printf $line
-	printf "*_R2_*.fastq.gz "
-	printf " -o ./quality/raw/"
-	printf "\n"
+	printf "fastqc \
+	-t $numberOfThreads \
+	$pathToFASTQFiles/$line*_R1_*.fastq.gz \
+	$pathToFASTQFiles/$line*_R2_*.fastq.gz \
+	-o ./quality/raw/ \
+	\n"
 
-	printf "/home/bio_tmp/HumanNGS/Apps/trim_galore/trim_galore"
-	printf " --path_to_cutadapt /home/bio_tmp/HumanNGS/Apps/cutadapt-1.8.1/bin/cutadapt"
-	printf " --length 50 --quality 28 --fastqc --paired  "
-	printf $pathToFASTQFiles
-	printf $line
-	printf "*_R1_*.fastq.gz "
-	printf $pathToFASTQFiles
-	printf $line
-	printf "*_R2_*.fastq.gz"
-	printf " -o ./quality/trim/"
-	printf "\n"
+    # printf $numberOfThreads
+    # printf " "
+	# printf $pathToFASTQFiles
+	# printf $line
+	# printf "*_R1_*.fastq.gz "
+	# printf $pathToFASTQFiles
+	# printf $line
+	# printf "*_R2_*.fastq.gz "
+	# printf " -o ./quality/raw/"
+	# printf "\n"
 
-	printf "STAR"
-	printf " --genomeDir "
-    printf $pathToGenomeRef
-   	printf " --runThreadN "
-    printf $numberOfThreads
-    printf " --readFilesCommand zcat"
-    printf " --readFilesIn ./quality/trim/"
-    printf $line
-    printf "*_R1_*val_1.fq.gz ./quality/trim/"
-    printf $line
-    printf "*_R2_*val_2.fq.gz"
-    printf " --outFileNamePrefix "
-    printf $line
-	printf "."
-	printf " --outReadsUnmapped Fastx"
-    printf "\n"
+	printf "/home/bio_tmp/HumanNGS/Apps/trim_galore/trim_galore \
+	--path_to_cutadapt /home/bio_tmp/HumanNGS/Apps/cutadapt-1.8.1/bin/cutadapt \
+	--length 50 \
+	--quality 28 \
+	--fastqc \
+	--paired \
+	$pathToFASTQFiles/$line*_R1_*.fastq.gz \
+	$pathToFASTQFiles/$line*_R2_*.fastq.gz \
+	-o ./quality/trim/ \
+	\n"
+
+	# printf "/home/bio_tmp/HumanNGS/Apps/trim_galore/trim_galore"
+	# printf " --path_to_cutadapt /home/bio_tmp/HumanNGS/Apps/cutadapt-1.8.1/bin/cutadapt"
+	# printf " --length 50 --quality 28 --fastqc --paired  "
+	# printf $pathToFASTQFiles
+	# printf $line
+	# printf "*_R1_*.fastq.gz "
+	# printf $pathToFASTQFiles
+	# printf $line
+	# printf "*_R2_*.fastq.gz"
+	# printf " -o ./quality/trim/"
+	# printf "\n"
+
+	printf "STAR \
+	--genomeDir $pathToGenomeRef \
+	--runThreadN $numberOfThreads \
+	--readFilesCommand zcat \
+	--readFilesIn \
+	./quality/trim/$line*_R1_*val_1.fq.gz \
+	./quality/trim/$line*_R2_*val_2.fq.gz \
+	--outFileNamePrefix $line. \
+	--outReadsUnmapped Fastx \
+    \n"
+
+	# printf "STAR"
+	# printf " --genomeDir "
+    # printf $pathToGenomeRef
+   	# printf " --runThreadN "
+    # printf $numberOfThreads
+    # printf " --readFilesCommand zcat"
+    # printf " --readFilesIn ./quality/trim/"
+    # printf $line
+    # printf "*_R1_*val_1.fq.gz ./quality/trim/"
+    # printf $line
+    # printf "*_R2_*val_2.fq.gz"
+    # printf " --outFileNamePrefix "
+    # printf $line
+	# printf "."
+	# printf " --outReadsUnmapped Fastx"
+    # printf "\n"
 
 	printf "samtools view"
 	printf " -@ "
