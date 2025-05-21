@@ -4,4 +4,4 @@ This repository contains R scripts used for the analysis of RNA-seq data, from p
 
 ## Repository Structure
 
-- `01_merge_data.R` – Load and preprocess raw count data  
+- `R/01_mergeGeneCounts.R` – Load and preprocess raw count data  
