@@ -1,9 +1,18 @@
 # ls -la /work/natanastas/Merge/20250127 | awk '{print $9}' | awk -F "_L" '{print $1}' | sort | uniq > SampleList
 
-pathToGenomeRef="/work_1/nikospech/hg38/gencode/star"
-pathToGenomeAnnotation="/work_1/nikospech/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf"
-pathToFASTQFiles="/mnt/new_home/kate_mallou/Karolinska_RNASeq/"
-numberOfThreads=16
+# pathToGenomeRef="/work_1/nikospech/hg38/gencode/star"
+# pathToGenomeAnnotation="/work_1/nikospech/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf"
+# pathToFASTQFiles="/mnt/new_home/kate_mallou/Karolinska_RNASeq/"
+# numberOfThreads=16
+
+pathToFASTQFiles="$1"
+SampleList="$2"
+
+pathToGenomeRef="$3"
+pathToGenomeAnnotation="$4"
+
+numberOfThreads="$5"
+
 
 printf "mkdir quality\n"
 printf "mkdir quality/raw\n"
@@ -13,7 +22,7 @@ printf "\n\n"
 printf "source activate star_aligner"
 printf "\n\n"
 
-cat SampleList | while read line; do
+cat $SampleList | while read line; do
 
 	printf "### $line ###\n"
 
