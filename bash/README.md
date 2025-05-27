@@ -28,7 +28,7 @@ SampleList \
 
 1. `/path/to/FASTQ_files:` Directory containing your input FASTQ files
 
-2. `SampleList:` A list with the sample's names
+2. `SampleList:` A file listing sample names (one per line, matching the FASTQ filename prefix)
 
 3. `/work_1/nikospech/hg38/gencode/star:` STAR genome index directory
 
