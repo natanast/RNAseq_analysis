@@ -26,12 +26,12 @@ SampleList \
 
 ## Output
 
-./quality/raw/: Raw FastQC reports
+- ./quality/raw/: Raw FastQC reports
 
-./quality/trim/: Trimmed FASTQ files + FastQC post-trim reports
+- ./quality/trim/: Trimmed FASTQ files + FastQC post-trim reports
 
-*.bam, *.mapped.bam, *.mapped.sorted.bam: Intermediate BAM files
+- *.bam, *.mapped.bam, *.mapped.sorted.bam: Intermediate BAM files
 
-gene-counts.txt: Final gene-level count matrix
+- gene-counts.txt: Final gene-level count matrix
 
-*.report.txt: Alignment statistics
+- *.report.txt: Alignment statistics
