@@ -1,7 +1,17 @@
 # How to Use the RNA-seq Scripts
 
 ## STAR Alignment Script
-This command runs the scripts which uses STAR alignment for a batch of paired-end RNA-seq samples.
+This script runs a full RNA-seq preprocessing and alignment pipeline using:
+
+- FastQC (for quality control),
+
+- Trim Galore (for trimming adapters and low-quality bases),
+
+- STAR (for genome alignment),
+
+- SAMtools (for post-alignment processing), and
+
+- featureCounts (for generating gene-level read counts).
 
 ```bash
 bash runSTAR.sh \
