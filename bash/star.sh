@@ -1,9 +1,18 @@
 # ls -la /work/natanastas/Merge/20250127 | awk '{print $9}' | awk -F "_L" '{print $1}' | sort | uniq > SampleList
 
-pathToGenomeRef="/work_1/nikospech/hg38/gencode/star"
-pathToGenomeAnnotation="/work_1/nikospech/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf"
-pathToFASTQFiles="/mnt/new_home/kate_mallou/Karolinska_RNASeq/"
-numberOfThreads=16
+# pathToGenomeRef="/work_1/nikospech/hg38/gencode/star"
+# pathToGenomeAnnotation="/work_1/nikospech/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf"
+# pathToFASTQFiles="/mnt/new_home/kate_mallou/Karolinska_RNASeq/"
+# numberOfThreads=16
+
+pathToFASTQFiles="$1"
+SampleList="$2"
+
+pathToGenomeRef="$3"
+pathToGenomeAnnotation="$4"
+
+numberOfThreads="$5"
+
 
 printf "mkdir quality\n"
 printf "mkdir quality/raw\n"
@@ -13,14 +22,14 @@ printf "\n\n"
 printf "source activate star_aligner"
 printf "\n\n"
 
-cat SampleList | while read line; do
+cat $SampleList | while read line; do
 
 	printf "### $line ###\n"
 
 	printf "fastqc \
 	-t $numberOfThreads \
-	$pathToFASTQFiles/$line*_R1_*.fastq.gz \
-	$pathToFASTQFiles/$line*_R2_*.fastq.gz \
+	$pathToFASTQFiles/$line*R1*.fastq.gz \
+	$pathToFASTQFiles/$line*R2*.fastq.gz \
 	-o ./quality/raw/ \
 	\n"
 
@@ -30,8 +39,8 @@ cat SampleList | while read line; do
 	--quality 28 \
 	--fastqc \
 	--paired \
-	$pathToFASTQFiles/$line*_R1_*.fastq.gz \
-	$pathToFASTQFiles/$line*_R2_*.fastq.gz \
+	$pathToFASTQFiles/$line*R1*.fastq.gz \
+	$pathToFASTQFiles/$line*R2*.fastq.gz \
 	-o ./quality/trim/ \
 	\n"
 
@@ -40,11 +49,11 @@ cat SampleList | while read line; do
 	--runThreadN $numberOfThreads \
 	--readFilesCommand zcat \
 	--readFilesIn \
-	./quality/trim/$line*_R1_*val_1.fq.gz \
-	./quality/trim/$line*_R2_*val_2.fq.gz \
+	./quality/trim/$line*R1*val_1.fq.gz \
+	./quality/trim/$line*R2*val_2.fq.gz \
 	--outFileNamePrefix $line. \
 	--outReadsUnmapped Fastx \
-    \n"
+    	\n"
 
 	printf "samtools view     -@ $numberOfThreads -bS $line.Aligned.out.sam -o $line.bam \n"
 	printf "samtools flagstat -@ $numberOfThreads $line.bam > $line.report.txt \n"
