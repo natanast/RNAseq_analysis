@@ -36,6 +36,7 @@ SampleList \
 
 5. `16:` Number of threads to use
 
+
 ## Output
 
 - `./quality/raw/:` Raw FastQC reports
