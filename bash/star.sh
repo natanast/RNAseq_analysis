@@ -28,8 +28,8 @@ cat $SampleList | while read line; do
 
 	printf "fastqc \
 	-t $numberOfThreads \
-	$pathToFASTQFiles/$line*_R1_*.fastq.gz \
-	$pathToFASTQFiles/$line*_R2_*.fastq.gz \
+	$pathToFASTQFiles/$line*R1*.fastq.gz \
+	$pathToFASTQFiles/$line*R2*.fastq.gz \
 	-o ./quality/raw/ \
 	\n"
 
@@ -39,8 +39,8 @@ cat $SampleList | while read line; do
 	--quality 28 \
 	--fastqc \
 	--paired \
-	$pathToFASTQFiles/$line*_R1_*.fastq.gz \
-	$pathToFASTQFiles/$line*_R2_*.fastq.gz \
+	$pathToFASTQFiles/$line*R1*.fastq.gz \
+	$pathToFASTQFiles/$line*R2*.fastq.gz \
 	-o ./quality/trim/ \
 	\n"
 
@@ -49,11 +49,11 @@ cat $SampleList | while read line; do
 	--runThreadN $numberOfThreads \
 	--readFilesCommand zcat \
 	--readFilesIn \
-	./quality/trim/$line*_R1_*val_1.fq.gz \
-	./quality/trim/$line*_R2_*val_2.fq.gz \
+	./quality/trim/$line*R1*val_1.fq.gz \
+	./quality/trim/$line*R2*val_2.fq.gz \
 	--outFileNamePrefix $line. \
 	--outReadsUnmapped Fastx \
-    \n"
+    	\n"
 
 	printf "samtools view     -@ $numberOfThreads -bS $line.Aligned.out.sam -o $line.bam \n"
 	printf "samtools flagstat -@ $numberOfThreads $line.bam > $line.report.txt \n"
