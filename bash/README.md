@@ -23,3 +23,15 @@ SampleList \
 /work_1/nikospech/hg38/gencode/gencode.v47.primary_assembly.basic.annotation.gtf \
 16
 ```
+
+## Output
+
+./quality/raw/: Raw FastQC reports
+
+./quality/trim/: Trimmed FASTQ files + FastQC post-trim reports
+
+*.bam, *.mapped.bam, *.mapped.sorted.bam: Intermediate BAM files
+
+gene-counts.txt: Final gene-level count matrix
+
+*.report.txt: Alignment statistics
