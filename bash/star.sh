@@ -99,7 +99,6 @@ cat $SampleList | while read line; do
 	printf "\n"
 done;
 
-# printf "rm *.sam"
 printf "\n\n"
 
 printf "/home/bio_tmp/HumanNGS/Apps/subread-1.6.4-Linux-x86_64/bin/featureCounts \
