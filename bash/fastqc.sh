@@ -19,7 +19,7 @@ cat $SampleList | while read line; do
 	-t $numberOfThreads \
 	$pathToFASTQFiles/$line*R1*.fastq.gz \
  	$pathToFASTQFiles/$line*R2*.fastq.gz \
- 	-o ./quality/raw/ \
+ 	-o . \
  	\n"
 
  	printf "\n"
