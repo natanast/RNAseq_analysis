@@ -17,7 +17,7 @@ printf "\n\n"
 printf "source ~/.bashrc\n"
 printf "\n\n"
 
-printf "conda activate fastqc_0.11.9"
+printf "conda activate fastqc_v0.12.1"
 printf "\n\n"
 
 cat $SampleList | while read line; do
@@ -99,7 +99,6 @@ cat $SampleList | while read line; do
 	printf "\n"
 done;
 
-# printf "rm *.sam"
 printf "\n\n"
 
 printf "/home/bio_tmp/HumanNGS/Apps/subread-1.6.4-Linux-x86_64/bin/featureCounts \
