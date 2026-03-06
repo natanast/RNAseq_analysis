@@ -1,4 +1,4 @@
-# ls -la /work/natanastas/Merge/20250127 | awk '{print $9}' | awk -F "_L" '{print $1}' | sort | uniq > SampleList
+# ls -la /path/to/fastq | awk '{print $9}' | awk -F "_R" '{print $1}' | sort | uniq > SampleList
 
 pathToFASTQFiles="$1"
 SampleList="$2"
@@ -19,7 +19,7 @@ cat $SampleList | while read line; do
 	-t $numberOfThreads \
 	$pathToFASTQFiles/$line*R1*.fastq.gz \
  	$pathToFASTQFiles/$line*R2*.fastq.gz \
- 	-o ./quality/raw/ \
+ 	-o . \
  	\n"
 
  	printf "\n"
