@@ -79,8 +79,6 @@ cat $SampleList | while read line; do
 	--outReadsUnmapped Fastx \
     \n"
 
-	printf "samtools view     -@ $numberOfThreads -bS $line.Aligned.out.sam -o $line.bam \n"
-	printf "rm $line.Aligned.out.sam\n"
 	printf "\n"
 done;
 
@@ -93,6 +91,9 @@ printf "\n\n"
 cat $SampleList | while read line; do
 
 	printf "### $line ###\n"
+
+	printf "samtools view     -@ $numberOfThreads -bS $line.Aligned.out.sam -o $line.bam \n"
+	printf "rm $line.Aligned.out.sam\n"
 
 	printf "samtools flagstat -@ $numberOfThreads $line.bam > $line.report.txt \n"
 	printf "samtools view 	  -@ $numberOfThreads -b -F 4 $line.bam -o $line.mapped.bam \n"
