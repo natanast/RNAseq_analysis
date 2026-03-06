@@ -87,6 +87,8 @@ done;
 printf "conda deactivate"
 printf "\n\n"
 
+printf "conda activate samtools_v1.22.1"
+printf "\n\n"
 
 cat $SampleList | while read line; do
 
@@ -99,6 +101,7 @@ cat $SampleList | while read line; do
 	printf "\n"
 done;
 
+printf "conda deactivate"
 printf "\n\n"
 
 printf "/home/bio_tmp/HumanNGS/Apps/subread-1.6.4-Linux-x86_64/bin/featureCounts \
