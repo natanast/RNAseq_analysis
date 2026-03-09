@@ -107,6 +107,7 @@ printf "\n\n"
 
 
 printf "conda activate subread_v2.1.1"
+printf "\n\n"
 
 printf "featureCounts \
 -a $pathToGenomeAnnotation \
