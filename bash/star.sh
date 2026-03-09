@@ -105,7 +105,10 @@ done;
 printf "conda deactivate"
 printf "\n\n"
 
-printf "/home/bio_tmp/HumanNGS/Apps/subread-1.6.4-Linux-x86_64/bin/featureCounts \
+
+printf "conda activate subread_v2.1.1"
+
+printf "featureCounts \
 -a $pathToGenomeAnnotation \
 -T $numberOfThreads \
 -t gene \
@@ -114,3 +117,8 @@ printf "/home/bio_tmp/HumanNGS/Apps/subread-1.6.4-Linux-x86_64/bin/featureCounts
 -o gene-counts.txt \
 *.mapped.sorted.bam \
 \n"
+
+printf "\n"
+
+printf "conda deactivate"
+printf "\n\n"
