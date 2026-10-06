@@ -114,7 +114,7 @@ printf "featureCounts \
 -T $numberOfThreads \
 -t gene \
 -g gene_name \
--p \
+-p --countReadPairs \
 -o gene-counts.txt \
 *.mapped.sorted.bam \
 \n"
