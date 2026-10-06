@@ -112,7 +112,7 @@ printf "\n\n"
 printf "featureCounts \
 -a $pathToGenomeAnnotation \
 -T $numberOfThreads \
--t gene \
+-t exon \
 -g gene_name \
 -p --countReadPairs \
 -o gene-counts.txt \
